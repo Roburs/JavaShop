@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Anulowano zamówienie</title>
+</head>
+<body>
+    <h1 th:text="${'Anulowano zamówienie nr ' + order.orderId}"></h1>
+    <h3 th:text="${'Jeżeli zamówienie zostało już odebrane, kwota w wysokości ' + order.price + ' zostanie zwrócona przy zwrocie towaru'}"></h3>
+    <h3>Zapraszamy na kolejne zakupy w Naszym sklepie</h3>
+
+</body>
+</html>

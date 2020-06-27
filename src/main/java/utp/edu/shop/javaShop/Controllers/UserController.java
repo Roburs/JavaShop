@@ -54,6 +54,12 @@ public class UserController {
         shopService.saveOrders(orderProductId,orderName,orderSurname);
     }
 
+    @PostMapping("/cancel/order/{orderId}/{name}/{surname}")
+    @ResponseBody
+    public void cancelOrder(@PathVariable Integer orderId, @PathVariable String name, @PathVariable String surname){
+        shopService.cancelOrderByOrderId(orderId,name,surname);
+    }
+
     @GetMapping("/finishedOrder")
     public String showOrder(Model model){
         Orders order = shopService.getNewOrder();
@@ -61,6 +67,17 @@ public class UserController {
         model.addAttribute("prices",shopService.findProductPriceById(order.getProductId()));
 
         return "finished";
+    }
+
+    @GetMapping("/return")
+    public String returnForm(){
+        return "returnForm";
+    }
+
+    @GetMapping("/cancelFinished")
+    public String cancel(Model model){
+        model.addAttribute("order",shopService.findLastCanceledOrder());
+        return "cancelFinished";
     }
 
 }

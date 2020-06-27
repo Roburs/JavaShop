@@ -1,5 +1,6 @@
 package utp.edu.shop.javaShop.Service;
 
+import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import utp.edu.shop.javaShop.Models.*;
@@ -65,6 +66,7 @@ public class ShopService {
                 1
         );
         purchaseRepository.save(purchase);
+        updateAmountOfProducts(productId, -1);
 
         return order;
     }
@@ -76,6 +78,36 @@ public class ShopService {
                 .collect(Collectors.toList());
 
         return orders.get(0);
+    }
+
+    public void updateAmountOfProducts(Integer productId, Integer change){
+        List<ProductByWeight> productByWeight = productByWeightRepository.findAll().stream()
+                .filter(productByWeight1 -> productByWeight1.getProductId().equals(productId))
+                .collect(Collectors.toList());
+
+        if(productByWeight.size() == 0){
+            List<SingleProduct> singleProduct = singleProductRepository.findAll().stream()
+                    .filter(singleProduct1 -> singleProduct1.getProductId().equals(productId))
+                    .collect(Collectors.toList());
+
+            if(singleProduct.size() == 0){
+                List<RtvAgdProduct> rtvAgdProduct = rtvAgdProductRepository.findAll().stream()
+                        .filter(rtvAgdProduct1 -> rtvAgdProduct1.getProductId().equals(productId))
+                        .collect(Collectors.toList());
+
+                RtvAgdProduct rtvAgdProduct1 = rtvAgdProduct.get(0);
+                rtvAgdProduct1.setAmount(rtvAgdProduct1.getAmount() + change);
+                rtvAgdProductRepository.save(rtvAgdProduct1);
+            }else{
+                SingleProduct singleProduct1 = singleProduct.get(0);
+                singleProduct1.setAmount(singleProduct1.getAmount() + change);
+                singleProductRepository.save(singleProduct1);
+            }
+        }else{
+            ProductByWeight productByWeight1 = productByWeight.get(0);
+            productByWeight1.setAmountInKg(productByWeight1.getAmountInKg() + change);
+            productByWeightRepository.save(productByWeight1);
+        }
     }
 
     public Integer findProductPriceById(Integer productId){
@@ -105,4 +137,34 @@ public class ShopService {
         return price;
     }
 
+    public void cancelOrderByOrderId(Integer orderId, String name, String surname){
+        List<Orders> orders = orderRepository.findAll().stream()
+                .filter(orders1 -> orders1.getId().equals(orderId))
+                .collect(Collectors.toList());
+
+        if(orders.size() == 1){
+//            if(orders.get(0).getName().equals(name) && orders.get(0).getName().equals(surname)){
+                List<Purchase> purchase = purchaseRepository.findAll().stream()
+                        .filter(purchase1 -> purchase1.getOrderId().equals(orderId))
+                        .collect(Collectors.toList());
+
+                Integer price = purchase.get(0).getPrice();
+
+                Returns newReturn = new Returns(
+                        orderId,
+                        price
+                );
+                returnsRepository.save(newReturn);
+                purchaseRepository.deleteById(purchase.get(0).getId());
+                updateAmountOfProducts(orders.get(0).getProductId(), 1);
+            //}
+        }
+    }
+
+    public Returns findLastCanceledOrder(){
+        Returns returns = returnsRepository.findAll().stream()
+                .max(Comparator.comparingInt(Returns::getId))
+                .get();
+        return returns;
+    }
 }
