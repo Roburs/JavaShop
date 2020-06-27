@@ -1,4 +1,4 @@
-package utp.edu.shop.javaShop.Repsitory;
+package utp.edu.shop.javaShop.Repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import utp.edu.shop.javaShop.Models.Order;
