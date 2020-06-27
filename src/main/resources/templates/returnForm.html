@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Zwrot Produktu</title>
+    <link rel="stylesheet" th:href="@{/css/returnForm.css}" type="text/css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script th:src="@{/scripts/returnForm.js}"></script>
+</head>
+<body>
+    <h1>Wypełnij formularz zwrócić zamówione towary</h1>
+    <h3>Możesz zwrócić wcześniej odebrane towary lub anulować niezrealizowane zamówienie</h3>
+
+    <h2>Formularz:</h2>
+    <h3>Imię</h3>
+    <input type="text" id="name">
+    <h3>Nazwisko</h3>
+    <input type="text" id="surname">
+    <h3>Nr zamówienia</h3>
+    <input type="text" id="orderNumber">
+
+    <div onClick="acceptForm()"><button>Zatwierdź formularz</button></div>
+    <a href="/cancelFinished"><button>Przejdź do podsumowania</button></a>
+
+</body>
+</html>
