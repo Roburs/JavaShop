@@ -19,11 +19,17 @@ public class Order {
     private Integer number;
     @NotNull
     private String productName;
+    @NotNull
+    private String name;
+    @NotNull
+    private String surname;
 
-    public Order(Integer productId, Integer number, String productName){
+    public Order(Integer productId, Integer number, String productName, String name, String surname){
         this.productId = productId;
         this.number = number;
         this.productName = productName;
+        this.name = name;
+        this.surname = surname;
     }
 
     public Order(){}
