@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Zamówienie</title>
+</head>
+<body>
+
+    <h1>Dziękujemy za złożenie zamówienia!</h1>
+    <h2>Dane zamówienia:</h2>
+    <div th:each="order: ${orders}">
+        <div th:text="${'Numer zamówienia:   ' + order.id}"></div>
+        <div th:text="${'Imię:   ' + order.name}"></div>
+        <div th:text="${'Nazwisko:    ' + order.surname}"></div>
+        <div th:text="${'Produkt:    ' + order.productName}"></div>
+        <div th:text="${'Kwota do zapłaty przy obiorze:    ' + prices + 'zł'}"></div>
+        <div th:text="${'Zapamiętaj podane dane. Będą ci one potrebne do odbioru lub zwrotu zamówienia'}"></div>
+    </div>
+
+    <a href="/shop"><button>Zamów coś jeszcze</button></a>
+    <a href="/"><button>Wróć na stronę główną</button></a>
+
+</body>
+</html>
