@@ -1,14 +1,16 @@
 package utp.edu.shop.javaShop.Models;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-@Table
+@Table(name = "returns")
 @Entity
 @Data
-public class Return {
+@AllArgsConstructor
+public class Returns {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,10 +20,10 @@ public class Return {
     @NotNull
     private Integer price;
 
-    public Return(Integer orderId, Integer price){
+    public Returns(Integer orderId, Integer price){
         this.orderId = orderId;
         this.price = price;
     }
 
-    public Return(){}
+    public Returns(){}
 }

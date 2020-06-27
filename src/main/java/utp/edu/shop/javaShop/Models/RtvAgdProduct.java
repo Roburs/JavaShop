@@ -1,13 +1,15 @@
 package utp.edu.shop.javaShop.Models;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-@Table
+@Table(name = "rtvagdproduct")
 @Entity
 @Data
+@AllArgsConstructor
 public class RtvAgdProduct {
 
     @Id

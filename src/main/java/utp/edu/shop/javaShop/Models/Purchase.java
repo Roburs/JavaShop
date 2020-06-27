@@ -1,13 +1,15 @@
 package utp.edu.shop.javaShop.Models;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-@Table
+@Table(name = "purchase")
 @Entity
 @Data
+@AllArgsConstructor
 public class Purchase {
 
     @Id
@@ -18,9 +20,9 @@ public class Purchase {
     @NotNull
     private Integer price;
     @NotNull
-    private Boolean readyToCollect;
+    private Integer readyToCollect;
 
-    public Purchase(Integer orderId, Integer price, Boolean readyToCollect){
+    public Purchase(Integer orderId, Integer price, Integer readyToCollect){
         this.orderId = orderId;
         this.price = price;
         this.readyToCollect = readyToCollect;
