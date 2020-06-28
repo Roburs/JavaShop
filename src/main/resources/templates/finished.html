@@ -3,22 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <title>Zamówienie</title>
+    <link rel="stylesheet" th:href="@{/css/finished.css}" type="text/css"/>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap&subset=latin-ext" rel="stylesheet">
 </head>
 <body>
+    <div id="container">
+        <h1>Dziękujemy za złożenie zamówienia!</h1>
+        <h2>Dane zamówienia:</h2>
+        <div id="orderDetails" th:each="order: ${orders}">
+            <div th:text="${'Numer zamówienia:   ' + order.id}"></div>
+            <div th:text="${'Imię:   ' + order.name}"></div>
+            <div th:text="${'Nazwisko:    ' + order.surname}"></div>
+            <div th:text="${'Produkt:    ' + order.productName}"></div>
+            <div th:text="${'Kwota do zapłaty przy obiorze:    ' + prices + 'zł'}"></div>
+            <div th:text="${'Zapamiętaj podane dane. Będą ci one potrebne do odbioru lub zwrotu zamówienia'}"></div>
+        </div>
 
-    <h1>Dziękujemy za złożenie zamówienia!</h1>
-    <h2>Dane zamówienia:</h2>
-    <div th:each="order: ${orders}">
-        <div th:text="${'Numer zamówienia:   ' + order.id}"></div>
-        <div th:text="${'Imię:   ' + order.name}"></div>
-        <div th:text="${'Nazwisko:    ' + order.surname}"></div>
-        <div th:text="${'Produkt:    ' + order.productName}"></div>
-        <div th:text="${'Kwota do zapłaty przy obiorze:    ' + prices + 'zł'}"></div>
-        <div th:text="${'Zapamiętaj podane dane. Będą ci one potrebne do odbioru lub zwrotu zamówienia'}"></div>
+        <a href="/shop"><button>Zamów coś jeszcze</button></a>
+        <a href="/"><button>Wróć na stronę główną</button></a>
     </div>
 
-    <a href="/shop"><button>Zamów coś jeszcze</button></a>
-    <a href="/"><button>Wróć na stronę główną</button></a>
 
 </body>
 </html>

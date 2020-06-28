@@ -4,71 +4,82 @@
     <meta charset="UTF-8">
     <title>Sklep</title>
     <link rel="stylesheet" th:href="@{/css/shop.css}" type="text/css"/>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap&subset=latin-ext" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script th:src="@{/scripts/shop.js}"></script>
 
 </head>
 <body>
-        <div>
+    <div id="container">
+        <div id="form">
             <p>Dane potrzebne do zamówienia:</p>
-            <p>Imię</p>
-            <input id="name" type="text">
-            <p>Nazwisko</p>
-            <input id='surname' type="text">
+            <div id="formContainer">
+                <div class="product2">
+                    <p>Imię</p>
+                    <input id="name" type="text">
+                </div>
+                <div class="product2">
+                    <p>Nazwisko</p>
+                    <input id='surname' type="text">
+                </div>
+                <div style="clear:both;"></div>
+            </div>
+        </div>
+        <div id="products">
+            <h1>
+                Produkty na wagę:
+            </h1>
+            <div th:each="products: ${allProducts}">
+                <div  th:each="productByWeight: ${productsByWeight}">
+                    <div th:if="${products.id.equals(productByWeight.productId)}">
+                        <div class="product" th:text="${products.name}"></div>
+                        <div class="product" th:text="${'   Cena za kg :' + productByWeight.pricePerKg}"></div>
+                        <div class="product" th:text="${'   Dostępna ilość :' + productByWeight.amountInKg}"></div>
+                        <div class="product" th:text="${'Mozliwość zwrotu:  '}"></div>
+                        <div class="product" th:if="${products.returnAbility.equals(1)}">Tak</div>
+                        <div class="product" th:if="${products.returnAbility.equals(0)}">Nie</div>
+                        <div class="product" th:id="${products.id}" onClick="order(this.id)"><a href="/finishedOrder"><button>Zamów produkt</button></a></div>
+                        <div style="clear:both;"></div>
+                    </div>
+                </div>
+            </div>
+            <h1>
+                Produkty sprzedawane na sztuki:
+            </h1>
+            <div th:each="products: ${allProducts}">
+                <div th:each="singleProduct: ${singleProducts}">
+                    <div th:if="${products.id.equals(singleProduct.productId)}">
+                        <div class="product" th:text="${products.name}"></div>
+                        <div class="product" th:text="${'   Cena :' + singleProduct.price}"></div>
+                        <div class="product" th:text="${'   Dostępna ilość :' + singleProduct.amount}"></div>
+                        <div class="product" th:text="${'Mozliwość zwrotu:  '}"></div>
+                        <div class="product" th:if="${products.returnAbility.equals(1)}">Tak</div>
+                        <div class="product" th:if="${products.returnAbility.equals(0)}">Nie</div>
+                        <a href="/finishedOrder"><div class="product" th:id="${products.id}" onClick="order(this.id)"><button>Zamów produkt</button></div></a>
+                        <div style="clear:both;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <h1>
+                Artykuły RTV/AGD:
+            </h1>
+            <div th:each="products: ${allProducts}">
+                <div th:each="rtvAgdProduct: ${rtvAgdProducts}">
+                    <div th:if="${products.id.equals(rtvAgdProduct.productId)}">
+                        <div class="product" th:text="${products.name}"></div>
+                        <div class="product" th:text="${'   Cena :' + rtvAgdProduct.price}"></div>
+                        <div class="product" th:text="${'   Dostępna ilość :' + rtvAgdProduct.amount}"></div>
+                        <div class="product" th:text="${'Mozliwość zwrotu:  '}"></div>
+                        <div class="product" th:if="${products.returnAbility.equals(1)}">Tak</div>
+                        <div class="product" th:if="${products.returnAbility.equals(0)}">Nie</div>
+                        <a href="/finishedOrder"><div class="product" th:id="${products.id}" onClick="order(this.id)"><button>Zamów produkt</button></div></a>
+                        <div style="clear:both;"></div>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <h1>
-        Produkty na wagę:
-        </h1>
-        <div th:each="products: ${allProducts}">
-            <div  th:each="productByWeight: ${productsByWeight}">
-                <div th:if="${products.id.equals(productByWeight.productId)}">
-                    <div class="product" th:text="${products.name}"></div>
-                    <div class="product" th:text="${'   Cena za kg :' + productByWeight.pricePerKg}"></div>
-                    <div class="product" th:text="${'   Dostępna ilość :' + productByWeight.amountInKg}"></div>
-                    <div class="product" th:text="${'Mozliwość zwrotu:  '}"></div>
-                    <div class="product" th:if="${products.returnAbility.equals(1)}">Tak</div>
-                    <div class="product" th:if="${products.returnAbility.equals(0)}">Nie</div>
-                    <div class="product" th:id="${products.id}" onClick="order(this.id)"><a href="/finishedOrder"><button>Zamów produkt</button></a></div>
-                    <div style="clear:both;"></div>
-                </div>
-            </div>
-        </div>
-        <h1>
-            Produkty sprzedawane na sztuki:
-        </h1>
-        <div th:each="products: ${allProducts}">
-            <div th:each="singleProduct: ${singleProducts}">
-                <div th:if="${products.id.equals(singleProduct.productId)}">
-                    <div class="product" th:text="${products.name}"></div>
-                    <div class="product" th:text="${'   Cena :' + singleProduct.price}"></div>
-                    <div class="product" th:text="${'   Dostępna ilość :' + singleProduct.amount}"></div>
-                    <div class="product" th:text="${'Mozliwość zwrotu:  '}"></div>
-                    <div class="product" th:if="${products.returnAbility.equals(1)}">Tak</div>
-                    <div class="product" th:if="${products.returnAbility.equals(0)}">Nie</div>
-                    <a href="/finishedOrder"><div class="product" th:id="${products.id}" onClick="order(this.id)"><button>Zamów produkt</button></div></a>
-                    <div style="clear:both;"></div>
-                </div>
-            </div>
-        </div>
-
-        <h1>
-            Artykuły RTV/AGD:
-        </h1>
-        <div th:each="products: ${allProducts}">
-            <div th:each="rtvAgdProduct: ${rtvAgdProducts}">
-                <div th:if="${products.id.equals(rtvAgdProduct.productId)}">
-                    <div class="product" th:text="${products.name}"></div>
-                    <div class="product" th:text="${'   Cena :' + rtvAgdProduct.price}"></div>
-                    <div class="product" th:text="${'   Dostępna ilość :' + rtvAgdProduct.amount}"></div>
-                    <div class="product" th:text="${'Mozliwość zwrotu:  '}"></div>
-                    <div class="product" th:if="${products.returnAbility.equals(1)}">Tak</div>
-                    <div class="product" th:if="${products.returnAbility.equals(0)}">Nie</div>
-                    <a href="/finishedOrder"><div class="product" th:id="${products.id}" onClick="order(this.id)"><button>Zamów produkt</button></div></a>
-                    <div style="clear:both;"></div>
-                </div>
-            </div>
-        </div>
     </div>
 </body>
 </html>

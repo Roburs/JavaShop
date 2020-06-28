@@ -3,12 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Anulowano zamówienie</title>
+    <link rel="stylesheet" th:href="@{/css/cancelFinished.css}" type="text/css"/>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap&subset=latin-ext" rel="stylesheet">
 </head>
 <body>
-    <h1 th:text="${'Anulowano zamówienie nr ' + order.orderId}"></h1>
-    <h3 th:text="${'Jeżeli zamówienie zostało już odebrane, kwota w wysokości ' + order.price + ' zostanie zwrócona przy zwrocie towaru'}"></h3>
-    <h3>Zapraszamy na kolejne zakupy w Naszym sklepie</h3>
-    <a href="/"><button>Wróć na stronę główną</button></a>
+
+    <div id="container">
+        <h1 th:text="${'Anulowano zamówienie nr ' + order.orderId}"></h1>
+        <h3 th:text="${'Jeżeli zamówienie zostało już odebrane, kwota w wysokości ' + order.price + ' zostanie zwrócona przy zwrocie towaru'}"></h3>
+        <h3>Zapraszamy na kolejne zakupy w Naszym sklepie</h3>
+        <a href="/"><button>Wróć na stronę główną</button></a>
+    </div>
 
 </body>
 </html>
