@@ -4,12 +4,23 @@
     <meta charset="UTF-8">
     <title>Sklep</title>
     <link rel="stylesheet" th:href="@{/css/index.css}" type="text/css"/>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap&subset=latin-ext" rel="stylesheet">
 </head>
 <body>
-    <h1>
-        Witaj w naszym sklepie!
-    </h1>
-    <a href="/shop"><button>Przejdz do sklepu</button></a>
-    <a href="/return"><button>Zwróć zamówienie</button></a>
+    <div id="container">
+        <img id="image" th:src="@{images/mainPage2.jpg}"/>
+        <div id="shadow"></div>
+        <div id="mainPageText">
+            <div id="title">
+                Witaj w naszym sklepie!
+            </div>
+
+            <a href="/shop"><button>Przejdz do sklepu</button></a>
+            <a href="/return"><button>Zwróć zamówienie</button></a>
+        </div>
+
+    </div>
+
+
 </body>
 </html>
